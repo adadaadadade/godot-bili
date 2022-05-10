@@ -1,0 +1,65 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "HTTPRequest",
+"class": "BiliInfoRequest",
+"language": "GDScript",
+"path": "res://addons/godot-bili/scripts/bili_info_request_class.gd"
+}, {
+"base": "Node",
+"class": "BiliLive",
+"language": "GDScript",
+"path": "res://addons/godot-bili/scripts/bili_live_class.gd"
+}, {
+"base": "Logger",
+"class": "BiliLiveLogger",
+"language": "GDScript",
+"path": "res://addons/godot-bili/scripts/bili_live_logger.gd"
+}, {
+"base": "HTTPRequest",
+"class": "ImageRequest",
+"language": "GDScript",
+"path": "res://addons/godot-bili/scripts/image_request_class.gd"
+}, {
+"base": "Node",
+"class": "Logger",
+"language": "GDScript",
+"path": "res://addons/godot-bili/scripts/logger_class.gd"
+} ]
+_global_script_class_icons={
+"BiliInfoRequest": "",
+"BiliLive": "",
+"BiliLiveLogger": "",
+"ImageRequest": "",
+"Logger": ""
+}
+
+[application]
+
+config/name="godot-bili"
+run/main_scene="res://addons/godot-bili/demo/Demo.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+BiliUtils="*res://addons/godot-bili/scripts/bili_utils.gd"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/godot-bili/plugin.cfg" )
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
