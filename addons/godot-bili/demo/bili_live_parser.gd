@@ -3,13 +3,20 @@ extends Node
 
 signal danmu(dict)
 signal gift(dict)
+signal gift_combo(dict)
+signal user_enter(dict)
+signal watch_changed(dict)
 
 ### cmd字段消息类型
 # 弹幕消息
 const DANMU_MSG = "DANMU_MSG"
-#
+# 进入房间
 const INTERACT_WORD = "INTERACT_WORD"
-#
+# 直播开始
+const LIVE = "LIVE"
+# 主播准备中
+const PREPARING = "PREPARING"
+# 观看人数改变
 const WATCHED_CHANGE = "WATCHED_CHANGE"
 # 欢迎xxx老爷
 const WELCOME_GUARD = "WELCOME_GUARD"
@@ -32,9 +39,9 @@ const ANCHOR_LOT_END = "ANCHOR_LOT_END"
 const ANCHOR_LOT_AWARD = "ANCHOR_LOT_AWARD"
 # 上舰长
 const GUARD_BUY = "GUARD_BUY"
-# 续费了舰长
+# 
 const USER_TOAST_MSG = "USER_TOAST_MSG"
-# 在本房间续费了舰长
+# 频道广播
 const NOTICE_MSG = "NOTICE_MSG"
 # 小时榜变动
 const ACTIVITY_BANNER_UPDATE_V2 = "ACTIVITY_BANNER_UPDATE_V2"
@@ -74,11 +81,21 @@ func _on_live_data_received(data: Dictionary):
 			dict["uid"] = user_info[0]
 			dict["uname"] = user_info[1]
 			var medal_info = info[3]
-			
+			#print(dict)
 			emit_signal("danmu", dict)
 		SEND_GIFT:
-			dict = data
+			dict = data["data"]
 			emit_signal("gift", dict)
+		COMBO_SEND:
+			dict = data["data"]
+			emit_signal("gift_combo", dict)
+		INTERACT_WORD:
+			dict = data["data"]
+			emit_signal("user_enter", dict)
+		WATCHED_CHANGE:
+			dict = data["data"]
+			emit_signal("watch_changed", dict)
+		
 		_:
 			pass
 	

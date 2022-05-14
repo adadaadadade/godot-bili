@@ -1,3 +1,4 @@
+# 作为 autoload 加载为全局单例
 extends Node
 
 const request_settings = {
@@ -86,7 +87,7 @@ static func get_method_by_api(api_dict:Dictionary) -> int:
 	return -1
 
 
-# 给url加上参数 api_dict通过get_api_dict获取， params_dict为参数名对应列表
+# 给url加上参数 api_dict 通过get_api_dict获取， params_dict为参数名对应列表
 static func url_add_params(api_dict:Dictionary, params_dict:Dictionary) -> String:
 	var params_api : Dictionary = api_dict["params"]
 	var url :String = api_dict["url"]
@@ -98,7 +99,7 @@ static func url_add_params(api_dict:Dictionary, params_dict:Dictionary) -> Strin
 	
 	return url
 
-# 得到 api 的 dict
+# 得到 api 的 dict, 可在 data 下查看 API json文件
 func get_api_dict(keys:PoolStringArray) -> Dictionary:
 	if api == null:
 		api = get_api()
@@ -109,7 +110,7 @@ func get_api_dict(keys:PoolStringArray) -> Dictionary:
 		dict = dict[key]
 	return dict
 
-
+##### 下面部分未使用，来自 https://github.com/vmjcv/godot_game
 class BilibiliColor:
 	var _color
 

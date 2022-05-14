@@ -1,19 +1,21 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/godot-bili/scripts/bili_live_logger.gd" type="Script" id=1]
 [ext_resource path="res://addons/godot-bili/demo/bili_data.gd" type="Script" id=2]
+[ext_resource path="res://addons/godot-bili/demo/demo.gd" type="Script" id=3]
 [ext_resource path="res://addons/godot-bili/demo/bili_live_parser.gd" type="Script" id=4]
 [ext_resource path="res://addons/godot-bili/scripts/bili_live_class.gd" type="Script" id=5]
 
 [node name="Demo" type="Node"]
+script = ExtResource( 3 )
 
 [node name="BiliLive" type="Node" parent="."]
 script = ExtResource( 5 )
-room_id = 55
+room_id = 22634198
 
-[node name="LiveLogger" type="Node" parent="."]
+[node name="LiveLogger" type="Node" parent="BiliLive"]
 script = ExtResource( 1 )
-live_path = NodePath("../BiliLive")
+live_path = NodePath("..")
 
 [node name="BiliLiveParser" type="Node" parent="."]
 script = ExtResource( 4 )
@@ -22,5 +24,6 @@ live_path = NodePath("../BiliLive")
 [node name="BiliData" type="Node" parent="."]
 script = ExtResource( 2 )
 
+[connection signal="danmu" from="BiliLiveParser" to="." method="_on_BiliLiveParser_danmu"]
 [connection signal="danmu" from="BiliLiveParser" to="BiliData" method="_on_BiliLiveParser_danmu"]
 [connection signal="gift" from="BiliLiveParser" to="BiliData" method="_on_BiliLiveParser_gift"]

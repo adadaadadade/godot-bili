@@ -1,3 +1,4 @@
+# 日志器
 extends Node
 class_name Logger
 

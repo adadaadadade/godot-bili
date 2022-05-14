@@ -1,9 +1,10 @@
+# BiliLive 日志输出， 默认路径在 user://bili_logs/<房间号>/<get_datetime格式的日期>.txt
 extends Logger
 class_name BiliLiveLogger
 
 export(NodePath) var live_path setget set_live_path
 export(bool) var auto_filename = true
-export(String, DIR) var log_dir = "user://bili_log"
+export(String, DIR) var log_dir = "user://bili_logs"
 export(String) var log_tail = ".txt"
 
 
@@ -30,6 +31,7 @@ func set_live_path(val: NodePath):
 	if is_instance_valid(_live):
 		_live.connect("connect_success", self, "_on_live_connect_success")
 		_live.connect("data_received", self, "_on_live_data_received")
+		pass
 
 
 func _on_live_connect_success():
