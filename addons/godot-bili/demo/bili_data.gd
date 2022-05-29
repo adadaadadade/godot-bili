@@ -22,15 +22,21 @@ func request_user_data(uid:int):
 		request.request_user_info(uid)
 
 
-func get_user_info(uid:int) -> Dictionary:
+func get_user_info(uid:int):
+	if not users_info.has(uid):
+		return null
 	return users_info[uid]
 
 
 func get_user_face_texture(uid:int) -> Texture:
+	if not users_face_texture.has(uid):
+		return null
 	return users_face_texture[uid]
 
 
 func get_user_face_image(uid:int) -> Image:
+	if not users_face_image.has(uid):
+		return null
 	return users_face_image[uid]
 
 
