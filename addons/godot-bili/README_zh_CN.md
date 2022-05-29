@@ -7,7 +7,6 @@ res://addons/godot-bili/demo 下有演示，使用时连接bili_live_parser的�
 demo 默认会在 user://bili_logs/<房间号>/<get_datetime格式的日期>.txt 下生成日志。若想要分析格式，可以查看生成的日志。
 
 # 已知的问题
-- 因为godot官方不支持gif动图格式，还不能读取为贴图。
 - b站HTTP API 有反爬虫机制，用户数据访问速度不能快过1秒1个，否则会被关小黑屋。
 
 # 参考

@@ -17,6 +17,8 @@ func _ready():
 func request_image(image_url: String, uid: int):
 	while get_http_client_status() != HTTPClient.STATUS_DISCONNECTED:
 		yield(get_tree(), "idle_frame")
+	# cdn 网站可以规定请求的格式
+	image_url += "@.png"
 	var error = request(image_url)
 	if error != OK:
 		push_error("HTTP 请求发生了错误。")
@@ -31,16 +33,8 @@ func _http_request_completed(result, response_code, headers, body):
 	var extension = self.url.get_extension()
 	var error
 	match extension:
-		"bmp":
-			error = image.load_bmp_from_buffer(body)
 		"png":
 			error = image.load_png_from_buffer(body)
-		"jpg":
-			error = image.load_jpg_from_buffer(body)
-		"webp":
-			error = image.load_webp_from_buffer(body)
-		"tga":
-			error = image.load_tga_from_buffer(body)
 		_:
 			push_error("cant make image from " + str(extension))
 			return

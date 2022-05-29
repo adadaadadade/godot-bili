@@ -5,7 +5,7 @@ class_name BiliLiveLogger
 export(NodePath) var live_path setget set_live_path
 export(bool) var auto_filename = true
 export(String, DIR) var log_dir = "user://bili_logs"
-export(String) var log_tail = ".txt"
+export(String) var log_tail = ".log"
 
 
 var _live: Node
@@ -47,8 +47,8 @@ static func datetime2str(datetime:Dictionary) -> String:
 	ret += str(datetime["year"]) + "-"
 	ret += str(int2str(datetime["month"])) + "-"
 	ret += str(int2str(datetime["day"])) + "T"
-	ret += str(int2str(datetime["hour"])) + ":"
-	ret += str(int2str(datetime["minute"])) + ":"
+	ret += str(int2str(datetime["hour"])) + "-"
+	ret += str(int2str(datetime["minute"])) + "-"
 	ret += str(int2str(datetime["second"]))
 	return ret
 
