@@ -1,13 +1,37 @@
 # 连接 BiliLive 的data_receive信号，再分析激活自己的信号
 extends Node
 
+# 收到弹幕
 signal danmu(dict)
+# 收到礼物
 signal gift(dict)
+# 礼物combo
 signal gift_combo(dict)
+# 用户进入
 signal user_enter(dict)
+# 舰长进入特效
+signal guard_enter(dict)
+# 观看人数改变
 signal watch_changed(dict)
+# super chat 这两个应该连接一个就行，好像同一个SC两个都会发
+signal super_chat_message(dict)
+signal super_chat_message_jpn(dict)
+# 上舰长
+signal guard_buy(dict)
+# 粉丝关注
+signal fan_like_change(dict)
+# 高能榜计数
+signal online_rank_count(dict)
+# 高能榜 前7变化 大概
+signal online_rank_v2(dict)
+# 高能榜 前三变化
+signal online_rank_top3(dict)
+# 分区排行变化，例如单机游戏分区
+signal hot_rank_changed(dict)
+# 二级分区变化，例如单机游戏下的独立游戏分区
+signal hot_rank_changed_v2(dict)
 
-### cmd字段消息类型
+### cmd字段消息类型，有些B站已经弃用，建议连接一个人数多的直播间，查看log文件再使用
 # 弹幕消息
 const DANMU_MSG = "DANMU_MSG"
 # 进入房间
@@ -47,6 +71,16 @@ const NOTICE_MSG = "NOTICE_MSG"
 const ACTIVITY_BANNER_UPDATE_V2 = "ACTIVITY_BANNER_UPDATE_V2"
 # 粉丝关注变动
 const ROOM_REAL_TIME_MESSAGE_UPDATE = "ROOM_REAL_TIME_MESSAGE_UPDATE"
+# 高能榜计数
+const ONLINE_RANK_COUNT = "ONLINE_RANK_COUNT"
+# 高能榜排名，不过好像就只有7个
+const ONLINE_RANK_V2 = "ONLINE_RANK_V2"
+# 高能榜前三变化
+const ONLINE_RANK_TOP3 = "ONLINE_RANK_TOP3"
+# 分区排行变化，例如单机游戏分区
+const HOT_RANK_CHANGED = "HOT_RANK_CHANGED"
+# 二级分区变化，例如单机游戏下的独立游戏分区
+const HOT_RANK_CHANGED_V2 = "HOT_RANK_CHANGED_V2"
 
 
 export(NodePath) var live_path setget set_live_path
@@ -92,10 +126,39 @@ func _on_live_data_received(data: Dictionary):
 		INTERACT_WORD:
 			dict = data["data"]
 			emit_signal("user_enter", dict)
+		ENTRY_EFFECT:
+			dict = data["data"]
+			emit_signal("guard_enter", dict)
 		WATCHED_CHANGE:
 			dict = data["data"]
 			emit_signal("watch_changed", dict)
-		
+		SUPER_CHAT_MESSAGE:
+			dict = data["data"]
+			emit_signal("super_chat_message", dict)
+		SUPER_CHAT_MESSAGE_JPN:
+			dict = data["data"]
+			emit_signal("super_chat_message_jpn", dict)
+		GUARD_BUY:
+			dict = data["data"]
+			emit_signal("guard_buy", dict)
+		ROOM_REAL_TIME_MESSAGE_UPDATE:
+			dict = data["data"]
+			emit_signal("fan_like_change", dict)
+		ONLINE_RANK_COUNT:
+			dict = data["data"]
+			emit_signal("online_rank_count", dict)
+		ONLINE_RANK_V2:
+			dict = data["data"]
+			emit_signal("online_rank_v2", dict)
+		ONLINE_RANK_TOP3:
+			dict = data["data"]
+			emit_signal("online_rank_top3", dict)
+		HOT_RANK_CHANGED:
+			dict = data["data"]
+			emit_signal("hot_rank_changed", dict)
+		HOT_RANK_CHANGED_V2:
+			dict = data["data"]
+			emit_signal("hot_rank_changed_v2", dict)
 		_:
 			pass
 	
