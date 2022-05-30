@@ -12,6 +12,12 @@ func add_line(line: String):
 
 
 func set_file_path(val: String):
-	if _file.open(val, File.WRITE) != OK:
-		return
-	file_path = val
+	var err :=  _file.open(val, File.WRITE)
+	if err != OK:
+		printerr("Open file error file path :" + val)
+	else:
+		file_path = val
+
+
+func _exit_tree():
+	_file.close()

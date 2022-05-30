@@ -3,9 +3,9 @@
 extends Node
 
 # 用户信息请求完成 user_info : Dict
-signal user_info_completed(user_info)
+signal user_info_completed(uid, user_info)
 # 用户头像请求完成 user_face : Texture
-signal user_face_completed(user_face)
+signal user_face_completed(uid, user_face)
 
 # key 都是 uid
 # 从 uid 到 userinfo
@@ -73,7 +73,7 @@ func _on_bili_info_completed(dict: Dictionary, type):
 
 	if type == "user_info":
 		users_info[uid] = dict
-		emit_signal("user_info_completed", dict)
+		emit_signal("user_info_completed", uid, dict)
 		if not users_face_image.has(uid):
 			var face_url = users_info[uid]["face"]
 			var request = _get_image_request()
@@ -86,7 +86,7 @@ func _on_image_completed(image: Image, uid: int):
 	users_face_image[uid] = image
 	var texture = image2texture(image)
 	users_face_texture[uid] = texture
-	emit_signal("user_face_completed", texture)
+	emit_signal("user_face_completed", uid, texture)
 
 
 static func image2texture(image: Image) -> Texture:
